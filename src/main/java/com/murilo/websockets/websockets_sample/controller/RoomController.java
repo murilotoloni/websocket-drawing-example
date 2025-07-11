@@ -38,7 +38,7 @@ public class RoomController {
         RoomMessage.MessageData joinMessageData = new RoomMessage.MessageData();
         joinMessageData.setPlayerId(joinRequest.getPlayerId());
         RoomMessage joinRoomMessage = new RoomMessage();
-        joinRoomMessage.setType("CANVAS_REFRESH");
+        joinRoomMessage.setType("PLAYER_JOIN");
         joinRoomMessage.setData(joinMessageData);
 
         // Broadcast para todos na sala
@@ -48,7 +48,6 @@ public class RoomController {
         );
 
         room.getData().forEach(object -> {
-
             RoomMessage.MessageData messageData = new RoomMessage.MessageData();
             messageData.setPlayerId(joinRequest.getPlayerId());
             messageData.setCanvas(object);
