@@ -35,12 +35,16 @@ public class RoomController {
         this.roomService.updateRoom(room);
 
 
-
+        RoomMessage.MessageData joinMessageData = new RoomMessage.MessageData();
+        joinMessageData.setPlayerId(joinRequest.getPlayerId());
+        RoomMessage joinRoomMessage = new RoomMessage();
+        joinRoomMessage.setType("CANVAS_REFRESH");
+        joinRoomMessage.setData(joinMessageData);
 
         // Broadcast para todos na sala
         messagingTemplate.convertAndSend(
                 "/topic/room/" + joinRequest.getRoomId(),
-                new WebSocketMessage("PLAYER_JOINED", joinRequest.getPlayerId())
+                joinRoomMessage
         );
 
         room.getData().forEach(object -> {
